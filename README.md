@@ -4,7 +4,7 @@
 
 > **A vibe-coded project for giving old Android devices a second life.**
 
-VibeCodedDashboard is a lightweight, self-hosted dashboard designed to turn old Android devices — especially devices running **Android 5.x and older WebViews** — into customizable digital displays.
+VibeCodedDashboard is a lightweight, self-hosted dashboard designed to turn old Android devices — especially devices running **Android 5.x and older WebViews (any device with a browser really)** — into customizable digital displays.
 
 It can display photos, videos, a clock, date, and weather information while being centrally managed from another computer on the same local network.
 
@@ -46,7 +46,7 @@ This is a **personal experimental project**, not enterprise software.
 
 If you're looking for a perfectly engineered production dashboard, this probably isn't it.
 
-If you're looking for a weird little project that can make a 10+ year-old Android phone useful again, you're in the right place.
+If you're looking for a weird little project that can make a 10+ year-old device useful again, you're in the right place.
 
 ---
 
@@ -111,7 +111,6 @@ One server can therefore control multiple displays, with each device having its 
 * 🔎 Searchable Google Fonts library in Modern mode
 * 🔐 Password-protected administration panel
 * 🌐 Local-network operation
-* 🧠 Automatic migration of older configuration files
 * 🍓 Raspberry Pi Zero 2 W friendly
 * 🐳 Optional Docker support
 
@@ -131,6 +130,7 @@ The server runs `server.py` and provides:
 * Authentication for the administration interface
 
 Each physical display is represented by a **section**.
+(Note: Multiple devices can share the same section withou problems too!!)
 
 A section is an independent profile containing its own:
 
@@ -197,9 +197,7 @@ The administration panel allows you to manage:
 
 # 📱 Multiple Devices
 
-Each physical display can have its own section.
-
-When a device opens the dashboard for the first time and multiple sections exist, it can select which section belongs to that device.
+When a device opens the dashboard for the first time and multiple sections exist, it can select which section that device will use.
 
 The selection is stored by the browser, so the device doesn't need to select itself every time.
 
@@ -364,14 +362,14 @@ The library is shared between sections, while each section maintains its own pla
 
 Weather information is handled by the **server**, rather than directly by the Android device.
 
-This is particularly important for Android 5 devices.
+This is particularly important for older Android devices.
 
 Old Android versions can have problems connecting directly to modern HTTPS APIs because of outdated certificates and TLS support.
 
 Instead, the architecture looks like this:
 
 ```text
-Android 5 Device
+Android Device
        │
        │ Local Network
        ▼
@@ -386,7 +384,7 @@ The server retrieves and manages the weather information.
 
 If the server temporarily loses Internet access, the dashboard can continue displaying the last saved weather information and indicate that the weather data is offline.
 
-The Android device therefore does not need to communicate directly with the external weather service.
+The device therefore does not need to communicate directly with the external weather service.
 
 ---
 
@@ -443,9 +441,9 @@ The display dashboard itself remains accessible without authentication so old An
 
 ---
 
-# 📡 Connecting an Android Device
+# 📡 Connecting an Device
 
-Make sure the Android device and server are connected to the same network.
+Make sure the device and server are connected to the same network.
 
 Find the server's local IP address.
 
@@ -461,7 +459,7 @@ ipconfig
 ip a
 ```
 
-Then open on the Android device:
+Then open on the device's browser:
 
 ```text
 http://YOUR_SERVER_IP:5000
@@ -487,7 +485,7 @@ The Raspberry Pi handles:
 * Weather requests
 * Dashboard logic
 
-The Android device mainly acts as the display.
+The device mainly acts as the display.
 
 Typical memory usage is approximately **30–50 MB**, depending on the environment and workload, which fits comfortably within the Zero 2 W's 512 MB of RAM.
 
@@ -581,7 +579,7 @@ Check the comments in the Docker configuration files, especially regarding persi
 
 ## The server must be running
 
-The Android devices are clients.
+The devices are clients.
 
 If the dashboard server is offline, the displays will not function normally.
 
@@ -655,9 +653,9 @@ The project intentionally uses a relatively simple technology stack:
 * **systemd** for Raspberry Pi deployment
 * **Docker** as an optional deployment method
 
-There is no native Android application.
+There is no native application.
 
-The Android device acts as a browser-based display.
+The device acts as a browser-based display.
 
 This is one of the main reasons the project can continue working on hardware that would otherwise be considered obsolete.
 
@@ -674,7 +672,6 @@ A phone that can no longer run modern applications can still have:
 * A good screen
 * Wi-Fi
 * A web browser
-* Speakers
 * A battery
 * A charging port
 * A perfectly usable display
