@@ -4,7 +4,7 @@
 
 > **A vibe-coded project for giving old Android devices a second life.**
 
-VibeCodedDashboard is a lightweight, self-hosted dashboard designed to turn old Android devices — especially devices running **Android 5.x and older WebViews (any device with a browser really)** — into customizable digital displays.
+VibeCodedDashboard is a lightweight, self-hosted dashboard designed to turn old Android devices — especially devices running **Android 5.x and older WebViews (or any device with a browser really)** — into customizable digital displays.
 
 It can display photos, videos, a clock, date, and weather information while being centrally managed from another computer on the same local network.
 
@@ -130,6 +130,7 @@ The server runs `server.py` and provides:
 * Authentication for the administration interface
 
 Each physical display is represented by a **section**.
+
 (Note: Multiple devices can share the same section withou problems too!!)
 
 A section is an independent profile containing its own:
