@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>(function(){var t=localStorage.getItem("admin_theme")||"light";document.documentElement.setAttribute("data-theme",t);})();</script>
+  <title data-i18n-title-tag="app_title">Painel · Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body>
+
+  <div class="rail">
+    <div class="rail-head">
+      <span class="rail-eyebrow" data-i18n="rail_eyebrow">Painel</span>
+      <h1 data-i18n="rail_title">Controle do dashboard</h1>
+      <div class="rail-user">
+        <span>{{ username }}</span>
+        <a href="/logout" data-i18n="logout_link">Sair</a>
+      </div>
+    </div>
+
+    <div class="section-switcher">
+      <span class="field-label" data-i18n="section_switch_label">Editando</span>
+      <select id="section-select"></select>
+      <div class="section-switcher-actions">
+        <button type="button" id="new-section-btn" class="btn-ghost small" data-i18n="new_section_btn">+ Nova seção</button>
+        <button type="button" id="rename-section-btn" class="btn-ghost small" data-i18n="rename_section_btn">Renomear</button>
+        <button type="button" id="delete-section-btn" class="btn-ghost small danger" data-i18n="delete_section_btn">Excluir seção</button>
+      </div>
+    </div>
+
+    <div class="preview-block">
+      <div class="preview-label" data-i18n="preview_label">O que aparece na tela</div>
+      <div class="preview-screen" id="preview-screen">
+        <div class="preview-badge" id="preview-clock" data-i18n="widget_clock">Relógio</div>
+        <div class="preview-badge" id="preview-date" data-i18n="widget_date">Data</div>
+        <div class="preview-badge" id="preview-weather" data-i18n="widget_weather">Clima</div>
+      </div>
+    </div>
+
+    <nav class="rail-nav">
+      <a href="#section-section" data-section="section-section" class="nav-link is-active">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="14" y="14" width="7" height="7" rx="1.2"/></svg>
+        <span data-i18n="nav_section">Seção</span>
+      </a>
+      <a href="#section-media" data-section="section-media" class="nav-link">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5.5-5.5a2 2 0 0 0-2.8 0L4 19"/></svg>
+        <span data-i18n="nav_media">Mídias</span>
+      </a>
+      <a href="#section-widgets" data-section="section-widgets" class="nav-link">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="7" height="7" rx="1.2"/><rect x="14" y="4" width="7" height="16" rx="1.2"/><rect x="3" y="14" width="7" height="6" rx="1.2"/></svg>
+        <span data-i18n="nav_widgets">Widgets</span>
+      </a>
+      <a href="#section-location" data-section="section-location" class="nav-link">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s7-7.2 7-12.5A7 7 0 0 0 5 9.5C5 14.8 12 22 12 22z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+        <span data-i18n="nav_location">Localização</span>
+      </a>
+    </nav>
+
+    <div class="rail-bottom">
+      <div class="rail-settings">
+        <div class="setting-row">
+          <span data-i18n="dark_mode_label">Tema escuro</span>
+          <label class="switch small">
+            <input type="checkbox" id="theme-toggle">
+            <span class="switch-track"><span class="switch-thumb"></span></span>
+          </label>
+        </div>
+        <div class="setting-row">
+          <span data-i18n="language_label">Idioma</span>
+          <div class="lang-toggle">
+            <button type="button" data-lang="pt" class="lang-btn">PT</button>
+            <button type="button" data-lang="en" class="lang-btn">EN</button>
+          </div>
+        </div>
+      </div>
+      <a class="rail-open-link" href="/" target="_blank" data-i18n="rail_open_link">Abrir o dashboard →</a>
+    </div>
+  </div>
+
+  <main class="content">
+
+    <section id="section-section" class="panel-section">
+      <h2 data-i18n="nav_section">Seção</h2>
+      <p class="section-note">
+        Cada seção é um perfil independente: fundo, widgets e localização
+        próprios. Use uma seção por tela/dispositivo que você tiver.
+      </p>
+
+      <div class="field-row">
+        <div class="field-group grow">
+          <span class="field-label" data-i18n="section_name_label">Nome desta seção</span>
+          <input type="text" id="section-name-input">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <span class="field-label" data-i18n="orientation_label">Orientação</span>
+          <div class="segmented">
+            <label><input type="radio" name="orientation-mode" id="orientation-landscape" value="landscape"><span data-i18n="orientation_landscape">Paisagem</span></label>
+            <label><input type="radio" name="orientation-mode" id="orientation-portrait" value="portrait"><span data-i18n="orientation_portrait">Retrato</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group grow">
+          <span class="field-label" data-i18n="display_mode_label">Modo de exibição</span>
+          <div class="segmented">
+            <label><input type="radio" name="display-mode" id="mode-compatibility" value="compatibility"><span data-i18n="mode_compatibility">Compatibilidade</span></label>
+            <label><input type="radio" name="display-mode" id="mode-modern" value="modern"><span data-i18n="mode_modern">Moderno</span></label>
+          </div>
+          <p class="hint" id="display-mode-hint"></p>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <span class="field-label" data-i18n="section_language_label">Idioma desta tela</span>
+          <div class="segmented">
+            <label><input type="radio" name="section-language" id="section-lang-pt" value="pt"><span>PT</span></label>
+            <label><input type="radio" name="section-language" id="section-lang-en" value="en"><span>EN</span></label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-media" class="panel-section">
+      <h2 data-i18n="media_h2">Mídias</h2>
+      <p class="section-note" data-i18n="media_note">
+        Envie fotos e vídeos abaixo, depois marque quais entram na
+        playlist. Quando um termina, o próximo entra sozinho.
+      </p>
+
+      <div class="subhead-row">
+        <h3 data-i18n="media_upload_h3">Enviar novas mídias</h3>
+      </div>
+      <div id="dropzone" class="dropzone">
+        <p>
+          <span data-i18n="dropzone_text">Arraste fotos/vídeos aqui, ou</span>
+          <label class="dropzone-browse">
+            <span data-i18n="dropzone_browse">escolha os arquivos</span>
+            <input type="file" id="file-input" multiple accept="image/*,video/*" hidden>
+          </label>
+        </p>
+        <div id="upload-progress" class="upload-progress"></div>
+      </div>
+
+      <div class="subhead-row">
+        <h3 data-i18n="media_available_h3">Disponíveis</h3>
+        <button id="refresh-media" class="btn-ghost" type="button" data-i18n="refresh_media_btn">Atualizar lista</button>
+      </div>
+      <div id="media-list" class="media-list"></div>
+
+      <h3 data-i18n="order_h3">Ordem de reprodução</h3>
+      <div id="selected-list" class="selected-list"></div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <span class="field-label" data-i18n="order_label">Ordem</span>
+          <div class="segmented">
+            <label><input type="radio" name="order-mode" id="order-sequential" value="sequential"><span data-i18n="order_sequential">Sequencial</span></label>
+            <label><input type="radio" name="order-mode" id="order-random" value="random"><span data-i18n="order_random">Aleatória</span></label>
+          </div>
+        </div>
+        <div class="field-group">
+          <span class="field-label" data-i18n="duration_label">Duração de cada foto</span>
+          <div class="input-suffix">
+            <input type="number" id="img-duration" min="2" max="120">
+            <span data-i18n="seconds_label">segundos</span>
+          </div>
+        </div>
+      </div>
+      <p class="hint" data-i18n="video_duration_hint">Vídeos tocam até o fim, independente dessa duração.</p>
+    </section>
+
+    <section id="section-widgets" class="panel-section">
+      <h2 data-i18n="widgets_h2">Widgets</h2>
+      <p class="section-note" data-i18n="drag_hint">Arraste os widgets na pré-visualização abaixo para posicioná-los na tela.</p>
+
+      <div class="drag-canvas-wrap">
+        <div class="drag-canvas" id="drag-canvas">
+          <div class="drag-badge" id="drag-clock" data-widget="clock" data-i18n="widget_clock">Relógio</div>
+          <div class="drag-badge" id="drag-date" data-widget="date" data-i18n="widget_date">Data</div>
+          <div class="drag-badge" id="drag-weather" data-widget="weather" data-i18n="widget_weather">Clima</div>
+        </div>
+      </div>
+
+      <div class="widget-row" data-widget="clock">
+        <div class="widget-row-head">
+          <label class="switch">
+            <input type="checkbox" id="clock-enabled">
+            <span class="switch-track"><span class="switch-thumb"></span></span>
+          </label>
+          <span class="widget-name" data-i18n="widget_clock">Relógio</span>
+        </div>
+        <div class="widget-row-controls">
+          <label class="mini-field"><span data-i18n="color_label">Cor</span>
+            <span class="color-swatch"><input type="color" id="clock-color"></span>
+          </label>
+          <label class="mini-field slider-field"><span data-i18n="size_label">Tamanho</span>
+            <input type="range" id="clock-size" min="0.5" max="3" step="0.1">
+            <span class="slider-val" id="clock-size-val"></span>
+          </label>
+          <label class="mini-field slider-field modern-only"><span data-i18n="opacity_label">Opacidade</span>
+            <input type="range" id="clock-opacity" min="0.2" max="1" step="0.05">
+            <span class="slider-val" id="clock-opacity-val"></span>
+          </label>
+          <label class="mini-field modern-only font-picker-field"><span data-i18n="font_label">Fonte</span>
+            <div class="font-picker" data-widget="clock">
+              <input type="text" class="font-search-input" id="clock-font-search" data-i18n-placeholder="font_search_placeholder" placeholder="Buscar fonte..." autocomplete="off">
+              <div class="font-dropdown" id="clock-font-dropdown"></div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="widget-row" data-widget="date">
+        <div class="widget-row-head">
+          <label class="switch">
+            <input type="checkbox" id="date-enabled">
+            <span class="switch-track"><span class="switch-thumb"></span></span>
+          </label>
+          <span class="widget-name" data-i18n="widget_date">Data</span>
+        </div>
+        <div class="widget-row-controls">
+          <label class="mini-field"><span data-i18n="color_label">Cor</span>
+            <span class="color-swatch"><input type="color" id="date-color"></span>
+          </label>
+          <label class="mini-field slider-field"><span data-i18n="size_label">Tamanho</span>
+            <input type="range" id="date-size" min="0.5" max="3" step="0.1">
+            <span class="slider-val" id="date-size-val"></span>
+          </label>
+          <label class="mini-field slider-field modern-only"><span data-i18n="opacity_label">Opacidade</span>
+            <input type="range" id="date-opacity" min="0.2" max="1" step="0.05">
+            <span class="slider-val" id="date-opacity-val"></span>
+          </label>
+          <label class="mini-field modern-only font-picker-field"><span data-i18n="font_label">Fonte</span>
+            <div class="font-picker" data-widget="date">
+              <input type="text" class="font-search-input" id="date-font-search" data-i18n-placeholder="font_search_placeholder" placeholder="Buscar fonte..." autocomplete="off">
+              <div class="font-dropdown" id="date-font-dropdown"></div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="widget-row" data-widget="weather">
+        <div class="widget-row-head">
+          <label class="switch">
+            <input type="checkbox" id="weather-enabled">
+            <span class="switch-track"><span class="switch-thumb"></span></span>
+          </label>
+          <span class="widget-name" data-i18n="widget_weather">Clima</span>
+        </div>
+        <div class="widget-row-controls">
+          <label class="mini-field"><span data-i18n="color_label">Cor</span>
+            <span class="color-swatch"><input type="color" id="weather-color"></span>
+          </label>
+          <label class="mini-field slider-field"><span data-i18n="size_label">Tamanho</span>
+            <input type="range" id="weather-size" min="0.5" max="3" step="0.1">
+            <span class="slider-val" id="weather-size-val"></span>
+          </label>
+          <label class="mini-field slider-field modern-only"><span data-i18n="opacity_label">Opacidade</span>
+            <input type="range" id="weather-opacity" min="0.2" max="1" step="0.05">
+            <span class="slider-val" id="weather-opacity-val"></span>
+          </label>
+          <label class="mini-field modern-only font-picker-field"><span data-i18n="font_label">Fonte</span>
+            <div class="font-picker" data-widget="weather">
+              <input type="text" class="font-search-input" id="weather-font-search" data-i18n-placeholder="font_search_placeholder" placeholder="Buscar fonte..." autocomplete="off">
+              <div class="font-dropdown" id="weather-font-dropdown"></div>
+            </div>
+          </label>
+          <label class="mini-field modern-only"><span data-i18n="icon_style_label">Ícones do clima</span>
+            <select id="weather-icon-style">
+              <option value="svg" data-i18n="icon_style_svg">Desenhado (compatível)</option>
+              <option value="emoji" data-i18n="icon_style_emoji">Emoji</option>
+            </select>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section id="section-location" class="panel-section">
+      <h2 data-i18n="location_h2">Localização</h2>
+      <p class="section-note" data-i18n="location_note">Usada para buscar o clima correto.</p>
+
+      <div class="field-row">
+        <div class="field-group grow">
+          <span class="field-label" data-i18n="city_label">Cidade</span>
+          <div class="input-suffix">
+            <input type="text" id="city-search" data-i18n-placeholder="city_placeholder" placeholder="Ex: João Pessoa">
+            <button id="city-search-btn" class="btn-primary" type="button" data-i18n="search_btn">Buscar</button>
+          </div>
+        </div>
+      </div>
+      <div id="city-results" class="city-results"></div>
+
+      <p class="current-location"><span data-i18n="current_location_label">Local atual:</span> <strong id="current-loc-label">—</strong></p>
+
+      <details class="advanced">
+        <summary data-i18n="advanced_summary">Avançado — latitude/longitude manual</summary>
+        <div class="field-row">
+          <div class="field-group">
+            <span class="field-label" data-i18n="latitude_label">Latitude</span>
+            <input type="text" id="lat">
+          </div>
+          <div class="field-group">
+            <span class="field-label" data-i18n="longitude_label">Longitude</span>
+            <input type="text" id="lon">
+          </div>
+        </div>
+        <button id="geo-btn" class="btn-ghost" type="button" data-i18n="use_pc_location_btn">Usar localização deste computador</button>
+      </details>
+    </section>
+
+  </main>
+
+  <div class="save-bar">
+    <span class="save-bar-hint" data-i18n="save_hint">O celular atualiza sozinho em até 30 segundos depois de salvar.</span>
+    <span id="save-status" class="save-status"></span>
+    <button id="save-btn" class="btn-primary btn-save" type="button" data-i18n="save_btn">Salvar alterações</button>
+  </div>
+
+  <script src="/static/js/i18n.js"></script>
+  <script src="/static/js/fonts.js"></script>
+  <script src="/static/js/admin.js"></script>
+</body>
+</html>

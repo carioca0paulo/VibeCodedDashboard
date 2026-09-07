@@ -1,0 +1,12 @@
+services:
+  dashboard:
+    build: .
+    container_name: dashboard-app
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./static/media:/app/static/media
+      - ./config.json:/app/config.json
+      - ./auth.json:/app/auth.json
+      - ./.flask_secret:/app/.flask_secret

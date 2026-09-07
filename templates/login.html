@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>(function(){var t=localStorage.getItem("admin_theme")||"light";document.documentElement.setAttribute("data-theme",t);})();</script>
+  <title data-i18n-title-tag="login_title">Entrar · Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body class="auth-body">
+  <div class="auth-card">
+    <span class="rail-eyebrow" data-i18n="rail_eyebrow">Painel</span>
+    <h1 data-i18n="login_title">Entrar</h1>
+
+    {% if error %}<p class="auth-error" data-i18n="err_{{ error }}"></p>{% endif %}
+
+    <form method="post" class="auth-form">
+      <label class="field-group">
+        <span class="field-label" data-i18n="username_label">Usuário</span>
+        <input type="text" name="username" autocomplete="username" required autofocus>
+      </label>
+      <label class="field-group">
+        <span class="field-label" data-i18n="password_label">Senha</span>
+        <input type="password" name="password" autocomplete="current-password" required>
+      </label>
+      <button class="btn-primary btn-auth" type="submit" data-i18n="login_submit_btn">Entrar</button>
+    </form>
+
+    <p class="hint" data-i18n="login_forgot_hint">
+      Esqueceu a senha? Apague o arquivo <code>auth.json</code> no servidor
+      e configure de novo ao acessar o painel.
+    </p>
+  </div>
+
+  <script src="/static/js/i18n.js"></script>
+  <script>
+    (async function () {
+      applySavedTheme();
+      let lang = "pt";
+      try {
+        const res = await fetch("/api/config");
+        const cfg = await res.json();
+        lang = cfg.admin_language || "pt";
+      } catch (e) {}
+      applyTranslations(lang);
+    })();
+  </script>
+</body>
+</html>

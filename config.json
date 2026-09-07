@@ -1,0 +1,23 @@
+{
+  "admin_language": "pt",
+  "sections": {
+    "principal": {
+      "name": "Principal",
+      "background_files": [],
+      "playback_order": "sequential",
+      "image_duration_seconds": 8,
+      "orientation": "landscape",
+      "display_mode": "compatibility",
+      "language": "pt",
+      "latitude": -7.115,
+      "longitude": -34.86,
+      "location_name": "João Pessoa",
+      "refresh_seconds": 30,
+      "widgets": {
+        "clock":   {"enabled": true, "x": 82, "y": 88, "color": "#ffffff", "size": 1.0, "opacity": 1.0, "font": "roboto"},
+        "date":    {"enabled": true, "x": 50, "y": 94, "color": "#ffffff", "size": 1.0, "opacity": 1.0, "font": "roboto"},
+        "weather": {"enabled": true, "x": 14, "y": 10, "color": "#ffffff", "size": 1.0, "opacity": 1.0, "font": "roboto", "icon_style": "svg"}
+      }
+    }
+  }
+}

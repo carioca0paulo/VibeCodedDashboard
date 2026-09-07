@@ -1,0 +1,7 @@
+__pycache__
+*.pyc
+.flask_secret
+auth.json
+config.json
+static/media/*
+!static/media/.gitkeep

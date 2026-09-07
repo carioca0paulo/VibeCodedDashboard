@@ -1,0 +1,172 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  /* Roboto é a fonte padrão do sistema Android (inclusive Android 5) */
+  font-family: Roboto, "Droid Sans", Arial, sans-serif;
+}
+
+#bg-container {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.bg-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+}
+
+#overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.widget {
+  position: absolute;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.7), 0 0 2px rgba(0,0,0,0.9);
+  display: none;
+  text-align: center;
+  transform-origin: center center;
+}
+
+#weather-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#weather-icon {
+  font-size: 3rem;
+  line-height: 1;
+  width: 1em;
+  height: 1em;
+}
+
+#weather-icon svg {
+  width: 1em;
+  height: 1em;
+  display: block;
+}
+
+#weather-temp {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+#weather-loc {
+  font-size: 1rem;
+  opacity: 0.85;
+}
+
+#clock {
+  font-size: 5rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+#date {
+  font-size: 1.3rem;
+  opacity: 0.9;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+#fullscreen-btn {
+  position: fixed;
+  left: 10px;
+  bottom: 10px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  opacity: 0.35;
+  transition: opacity 0.2s;
+}
+
+#fullscreen-btn:active,
+#fullscreen-btn:hover {
+  opacity: 0.9;
+}
+
+.change-section-link {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  z-index: 9999;
+  color: rgba(255,255,255,0.4);
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 0.75rem;
+  text-decoration: none;
+  background: rgba(0,0,0,0.4);
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+.change-section-link:hover { color: rgba(255,255,255,0.85); }
+
+/* ---------- Tela de escolha de seção ---------- */
+.chooser {
+  position: fixed;
+  inset: 0;
+  background: #101114;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Roboto, Arial, sans-serif;
+  color: #fff;
+}
+
+.chooser-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  text-align: center;
+}
+
+.chooser-card h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.chooser-card p {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.95rem;
+  margin-bottom: 28px;
+}
+
+.chooser-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chooser-btn {
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  font-size: 1.05rem;
+  font-family: inherit;
+  cursor: pointer;
+}
+.chooser-btn:active { background: rgba(255,255,255,0.14); }

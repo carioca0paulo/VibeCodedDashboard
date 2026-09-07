@@ -1,0 +1,32 @@
+# sorry, got too lazy to translate this file and AI was translating words weirdly, use at your own discretion
+#
+# Serviço systemd para rodar o dashboard sozinho no Raspberry Pi (sem Docker).
+#
+# Instalação:
+#   1. Ajuste WorkingDirectory e User abaixo pro seu caso (padrão: usuário
+#      "pi", projeto em /home/pi/dashboard-app).
+#   2. sudo cp dashboard.service /etc/systemd/system/dashboard.service
+#   3. sudo systemctl daemon-reload
+#   4. sudo systemctl enable dashboard      # inicia sozinho no boot
+#   5. sudo systemctl start dashboard
+#
+# Comandos úteis depois:
+#   sudo systemctl status dashboard     -> ver se está rodando
+#   sudo systemctl restart dashboard    -> reiniciar (ex: após editar código)
+#   journalctl -u dashboard -f          -> ver logs em tempo real
+
+[Unit]
+Description=Dashboard (celular antigo como quadro digital)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/dashboard-app
+ExecStart=/usr/bin/python3 /home/pi/dashboard-app/server.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
